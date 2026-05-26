@@ -237,7 +237,7 @@
       <div class="header-sub">Faculty of Business and Law · Curtin University</div>
     </div>
   </div>
-  <span style="color:rgba(255,255,255,0.4);font-size:11px;margin-right:8px">v1.01</span>
+  <span style="color:rgba(255,255,255,0.4);font-size:11px;margin-right:8px">v1.03</span>
   <button class="btn-reload-hdr" onclick="loadData()">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
     Refresh
@@ -297,7 +297,10 @@
         👁 Hide Confirmed
       </button>
     </div>
-    <div class="last-updated" id="lastUpdated"></div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="last-updated" id="lastUpdated"></div>
+      <button onclick="openMissingModal('Unit')" style="padding:6px 14px;border:1px solid var(--red);border-radius:var(--radius);font-family:inherit;font-size:12px;font-weight:500;background:var(--red-bg);color:var(--red);cursor:pointer;white-space:nowrap;transition:all .15s">&#10067; Report Missing Unit</button>
+    </div>
   </div>
   <div class="table-wrap">
     <div class="table-scroll">
@@ -321,11 +324,7 @@
       </table>
     </div>
   </div>
-  <div style="margin-top:16px;text-align:right">
-    <button onclick="openMissingUnitModal()" style="padding:9px 20px;border:1px solid var(--border);border-radius:var(--radius);font-family:inherit;font-size:13px;font-weight:500;background:var(--surface);color:var(--muted);cursor:pointer;transition:all .15s" onmouseover="this.style.borderColor='var(--navy)';this.style.color='var(--navy)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
-      &#10067; Missing Unit
-    </button>
-  </div>
+
 </main>
 
 <!-- ════════ ORGS VIEW ════════ -->
@@ -353,7 +352,10 @@
         👁 Hide Confirmed
       </button>
     </div>
-    <div class="last-updated" id="oLastUpdated"></div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="last-updated" id="oLastUpdated"></div>
+      <button onclick="openMissingModal('Organisation')" style="padding:6px 14px;border:1px solid var(--red);border-radius:var(--radius);font-family:inherit;font-size:12px;font-weight:500;background:var(--red-bg);color:var(--red);cursor:pointer;white-space:nowrap;transition:all .15s">&#10067; Report Missing Organisation</button>
+    </div>
   </div>
   <div class="table-wrap">
     <div class="table-scroll">
@@ -579,20 +581,20 @@
 <div class="modal-overlay" id="missingUnitModal">
   <div class="modal" style="width:460px">
     <div class="modal-header">
-      <div><h2>&#10067; Report Missing Unit</h2><p>Let us know if your unit is not listed</p></div>
+      <div><h2>&#10067; Report Missing Item</h2><p id="missingModalSubtitle">Let us know if your unit is not listed</p></div>
       <button class="modal-close" onclick="closeModal('missingUnitModal')">&#10005;</button>
     </div>
     <div class="modal-body">
       <div class="form-group"><label>Your Name *</label><input type="text" id="missingName" placeholder="Full name"></div>
       <div class="form-group"><label>Staff ID *</label><input type="text" id="missingStaffId" placeholder="e.g. 12345678"></div>
-      <div class="form-group"><label>Missing Unit Code *</label><input type="text" id="missingUnitCode" placeholder="e.g. ACCT1001"></div>
+      <div class="form-group"><label>Missing Code *</label><input type="text" id="missingUnitCode" placeholder="e.g. ACCT1001 or Org ID"></div>
       <div class="form-group"><label>Additional Comments</label><textarea id="missingComments" rows="3" placeholder="Any additional details about the missing unit..."></textarea></div>
     </div>
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closeModal('missingUnitModal')">Cancel</button>
       <button class="btn-submit-main" onclick="submitMissingUnit()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2 11 13"/><path d="M22 2 15 22 11 13 2 9l20-7z"/></svg>
-        Open Email
+        Submit Report
       </button>
     </div>
   </div>
@@ -617,6 +619,8 @@ const CONFIG = {
   // Org flows - paste URLs here when ready
   orgConfirmUrl: 'https://e8a2c715af0feec8b14699a3964e10.cb.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/7055d1a39659424bb7a51c9a8d3fece7/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=IQbMp5SL9duxEDs56-5ZWA3Xbym9h7iIQTebFvIPm0E',
   orgChangeUrl:  'https://e8a2c715af0feec8b14699a3964e10.cb.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/20e07498b5744fcbbc55c0098765142a/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=GvT-PRB9NsmXjEtsZk51uFFtWArQXvD3SXU13jzNlaE',
+  // Report Missing flow
+  reportMissingUrl: 'https://e8a2c715af0feec8b14699a3964e10.cb.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e5af4c465e26454d8a20f0637f3e64e9/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=NsSGI94mT4Eel4jxq7I7UrJ0AA6ZVUmjceDgYjO0zCI',
 };
 
 // -- Column maps --------------------------------------------------
@@ -1266,40 +1270,42 @@ async function confirmDeletePassword() {
 }
 
 // -- Missing Unit -----------------------------------------------
-function openMissingUnitModal() {
+let missingReportType = 'Unit';
+
+function openMissingModal(type) {
+  missingReportType = type;
   document.getElementById('missingName').value     = '';
   document.getElementById('missingStaffId').value  = '';
   document.getElementById('missingUnitCode').value = '';
   document.getElementById('missingComments').value = '';
+  document.getElementById('missingModalSubtitle').textContent = 'Let us know if your ' + type.toLowerCase() + ' is not listed';
+  document.querySelector('#missingUnitModal .modal-header h2').innerHTML = '&#10067; Report Missing ' + type;
+  document.querySelector('label[for-missing-code]') // update label if needed
   openModal('missingUnitModal');
   setTimeout(() => document.getElementById('missingName').focus(), 100);
 }
 
-function submitMissingUnit() {
+async function submitMissingUnit() {
   const name     = document.getElementById('missingName').value.trim();
   const staffId  = document.getElementById('missingStaffId').value.trim();
   const unitCode = document.getElementById('missingUnitCode').value.trim();
   const comments = document.getElementById('missingComments').value.trim();
 
   if (!name || !staffId || !unitCode) {
-    showToast('Please fill in your name, staff ID and unit code.', 'error');
+    showToast('Please fill in all required fields.', 'error');
     return;
   }
 
-  const subject = 'Missing Unit Report - ' + unitCode;
-  const body =
-'Hi,' +
-'\n\nI would like to report a missing unit from the LMS Migration Check tool.' +
-'\n\nStaff Name:  ' + name +
-'\nStaff ID:    ' + staffId +
-'\nUnit Code:   ' + unitCode +
-(comments ? '\n\nAdditional Comments:\n' + comments : '') +
-'\n\nRegards,' +
-'\n' + name;
+  await callFlow(CONFIG.reportMissingUrl, {
+    reportType:  missingReportType,
+    staffName:   name,
+    staffId:     staffId,
+    missingCode: unitCode,
+    comments:    comments
+  });
 
-  window.location.href = 'mailto:FBLCanvasMigration@curtin.edu.au?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   closeModal('missingUnitModal');
-  showToast('Email opened for missing unit ' + unitCode, 'success');
+  showToast('Missing ' + missingReportType + ' report sent - ' + unitCode, 'success');
 }
 
 // ================================================================
