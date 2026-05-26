@@ -237,6 +237,7 @@
       <div class="header-sub">Faculty of Business and Law · Curtin University</div>
     </div>
   </div>
+  <span style="color:rgba(255,255,255,0.4);font-size:11px;margin-right:8px">v1.01</span>
   <button class="btn-reload-hdr" onclick="loadData()">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
     Refresh
@@ -1003,7 +1004,7 @@ async function submitUnitChange() {
     studyPeriod:    row[UCOLS.studyPeriod]  || '',
     staffName:      name,
     staffId:        staffId,
-    changeComment:  entry,
+    changeComment:  row[UCOLS.reqChange],  // full accumulated text
     submittedDate:  now
   });
 
@@ -1216,7 +1217,7 @@ async function submitOrgChange() {
   const existing=String(row[OCOLS.reqChange]||'').trim();
   row[OCOLS.reqChange]=existing?existing+'\n'+entry:entry;
   document.getElementById('oChangeSubmitBtn').disabled=true; document.getElementById('oChangeSaving').style.display='block';
-  await callFlow(CONFIG.orgChangeUrl, { organisationId:row[OCOLS.orgId]||'', spItemId: String(row[OCOLS.spId]||""), organisationName:row[OCOLS.orgName]||'', staffName:name, staffId, decision, comment, submittedDate:now });
+  await callFlow(CONFIG.orgChangeUrl, { organisationId:row[OCOLS.orgId]||'', spItemId: String(row[OCOLS.spId]||""), organisationName:row[OCOLS.orgName]||'', staffName:name, staffId, decision, comment:row[OCOLS.reqChange], submittedDate:now });
   closeModal('oChangeModal'); renderOrgs(getFilteredOrgs()); updateOrgStats();
   showToast('Organisation change request submitted','success');
 }
@@ -1250,14 +1251,14 @@ async function confirmDeletePassword() {
   if (deleteContext==='unit') {
     const row=unitRows[activeUnitIdx], code=row[UCOLS.studyCode]||'';
     row[UCOLS.reqChange]=''; row[UCOLS.confirmed]='N'; row[UCOLS.confirmedBy]='';
-    await callFlow(CONFIG.unitChangeUrl, { uniqueCode:row[UCOLS.uniqueCode]||'', studyPackageCode:code, unitTitle:row[UCOLS.title]||'', bbCourseId:row[UCOLS.bbCourseId]||'', bbCourseName:row[UCOLS.bbCourseName]||'', studyPeriod:row[UCOLS.studyPeriod]||'', staffName:'', staffId:'', changeComment:'', submittedDate:now });
+    await callFlow(CONFIG.unitChangeUrl, { uniqueCode:row[UCOLS.uniqueCode]||'', spItemId:String(row[UCOLS.spId]||''), studyPackageCode:code, unitTitle:row[UCOLS.title]||'', bbCourseId:row[UCOLS.bbCourseId]||'', bbCourseName:row[UCOLS.bbCourseName]||'', studyPeriod:row[UCOLS.studyPeriod]||'', staffName:'', staffId:'', changeComment:'', submittedDate:now });
     await callFlow(CONFIG.unitConfirmUrl, { uniqueCode:row[UCOLS.uniqueCode]||'', studyPackageCode:code, confirmed:'N', confirmedBy:'', confirmedDate:'' });
     renderUnits(getFilteredUnits()); updateUnitStats();
     showToast(` Change request deleted - unit reset to Pending`,'success');
   } else {
     const row=orgRows[activeOrgIdx];
     row[OCOLS.reqChange]=''; row[OCOLS.confirmed]='N'; row[OCOLS.confirmedBy]='';
-    await callFlow(CONFIG.orgChangeUrl, { organisationId:row[OCOLS.orgId]||'', organisationName:row[OCOLS.orgName]||'', staffName:'', staffId:'', decision:'', comment:'', submittedDate:now });
+    await callFlow(CONFIG.orgChangeUrl, { organisationId:row[OCOLS.orgId]||'', spItemId: String(row[OCOLS.spId]||""), organisationName:row[OCOLS.orgName]||'', staffName:'', staffId:'', decision:'', comment:'', submittedDate:now });
     await callFlow(CONFIG.orgConfirmUrl, { organisationId:row[OCOLS.orgId]||'', confirmed:'N', confirmedBy:'', confirmedDate:'' });
     renderOrgs(getFilteredOrgs()); updateOrgStats();
     showToast(` Change request deleted - organisation reset to Pending`,'success');
