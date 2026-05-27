@@ -245,7 +245,7 @@
       <div class="header-sub">Faculty of Business and Law · Curtin University</div>
     </div>
   </div>
-  <span style="color:rgba(255,255,255,0.4);font-size:11px;margin-right:8px">v1.04</span>
+  <span style="color:rgba(255,255,255,0.4);font-size:11px;margin-right:8px">v1.06</span>
   <button class="btn-reload-hdr" onclick="loadData()">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
     Refresh
@@ -416,11 +416,12 @@
     <div class="modal-body" style="max-height:75vh;overflow-y:auto">
       <div style="background:#FEF3C7;border:1px solid #FCD34D;border-radius:var(--radius);padding:14px 16px;margin-bottom:4px;font-size:12.5px;line-height:1.7;color:#92400E">
         <div style="font-weight:700;font-size:13px;margin-bottom:8px">&#9888; Important Guidance</div>
-        <p style="margin-bottom:8px">The recommendation is to select <strong>one version</strong> of your unit for migration from a completed study period, ideally the Blackboard site with the most up-to-date content.</p>
-        <p style="margin-bottom:8px">Only request additional Blackboard sites for migration where the content differs significantly, such as where a fully online version has different materials, instructions or activities. Once content has been migrated to Canvas, it can be copied into other availabilities if you currently use separate Blackboard sites.</p>
-        <div style="font-weight:700;margin:10px 0 4px">Semester 2 / Trimester 2 2026 units and beyond</div>
+        <p style="margin-bottom:8px">The recommendation is for <strong>only one version</strong> of your unit to be migrated from a completed study period — ideally, the Blackboard site with the most up-to-date content.</p>
+        <p style="margin-bottom:8px">Once content has been migrated to Canvas, it can be copied into other availabilities if you currently use separate sites for different modes, availabilities, or locations.</p>
+        <p style="margin-bottom:8px">Additional Blackboard sites should only be requested where the content differs significantly, such as where a fully online version has different materials, instructions, or activities.</p>
+        <div style="font-weight:700;margin:10px 0 4px">Selecting Semester 2, 2026 / Trimester 2, 2026 units</div>
         <p style="margin-bottom:6px">The initial migration will only include Blackboard sites that are complete by the end of Semester 1, 2026. These sites will be migrated and made available in Canvas in August/September 2026.</p>
-        <p>If you select a Blackboard site that continues teaching after Semester 1, 2026 — for example, a Semester 2 2026 or Trimester 2 2026 site — it will not be migrated in the first round. It will instead be migrated at the end of the year, with access in Canvas expected from January 2027.</p>
+        <p>If you select a Blackboard site that has a study period end date later than 22 June 2026 — for example, a Semester 2 2026 or Trimester 2 2026 site — it will not be migrated in the first round. It will instead be migrated at the end of the year, with access in Canvas expected from January 2027.</p>
       </div>
       <div style="display:flex;gap:12px">
         <div class="form-group" style="flex:1"><label>Your Name *</label><input type="text" id="uStaffName" placeholder="Full name"></div>
@@ -430,37 +431,37 @@
         <label>Change Type *</label>
         <div style="display:flex;gap:10px;margin-top:4px">
           <label style="flex:1;display:flex;align-items:center;gap:8px;padding:10px;border:2px solid var(--border);border-radius:var(--radius);cursor:pointer;font-size:13px;font-weight:500;transition:all .15s" id="lblChangeDefault">
-            <input type="radio" name="uChangeType" value="change_default" onchange="onChangeTypeSelect()" style="width:auto"> Change Default Unit
+            <input type="radio" name="uChangeType" value="change_default" onchange="onChangeTypeSelect()" style="width:auto"> Change Default Site
           </label>
           <label style="flex:1;display:flex;align-items:center;gap:8px;padding:10px;border:2px solid var(--border);border-radius:var(--radius);cursor:pointer;font-size:13px;font-weight:500;transition:all .15s" id="lblAddUnits">
-            <input type="radio" name="uChangeType" value="add_units" onchange="onChangeTypeSelect()" style="width:auto"> Add Additional Units
+            <input type="radio" name="uChangeType" value="add_units" onchange="onChangeTypeSelect()" style="width:auto"> Add Additional Sites
           </label>
         </div>
       </div>
       <div id="sectionChangeDefault" style="display:none">
         <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:4px">
-          <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">Replacement Unit Details</div>
+          <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">Replacement Site Details</div>
           <div style="display:flex;gap:10px">
             <div class="form-group" style="flex:1"><label>Teaching Year *</label><input type="text" id="cdYear" placeholder="e.g. 2025"></div>
             <div class="form-group" style="flex:1"><label>Teaching Period *</label><input type="text" id="cdPeriod" placeholder="e.g. Semester 1"></div>
           </div>
           <div class="form-group"><label>Blackboard Site Name *</label><input type="text" id="cdBBName" placeholder="e.g. ACCT1001_S1_2025"></div>
-          <div class="form-group"><label>Rationale *</label><textarea id="cdRationale" rows="3" placeholder="Explain why this unit should be changed..."></textarea></div>
+          <div class="form-group"><label>Rationale *</label><textarea id="cdRationale" rows="3" placeholder="Explain why this site should be changed..."></textarea></div>
         </div>
       </div>
       <div id="sectionAddUnits" style="display:none">
         <div id="additionalUnitsContainer">
           <div class="additional-unit-block" style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px">
-            <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">Additional Unit 1</div>
+            <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px">Additional Site 1</div>
             <div style="display:flex;gap:10px">
               <div class="form-group" style="flex:1"><label>Teaching Year *</label><input type="text" class="au-year" placeholder="e.g. 2025"></div>
               <div class="form-group" style="flex:1"><label>Teaching Period *</label><input type="text" class="au-period" placeholder="e.g. Semester 1"></div>
             </div>
             <div class="form-group"><label>Blackboard Site Name *</label><input type="text" class="au-bbname" placeholder="e.g. ACCT1001_S1_2025"></div>
-            <div class="form-group"><label>Rationale *</label><textarea class="au-rationale" rows="3" placeholder="Explain why this unit should be added..."></textarea></div>
+            <div class="form-group"><label>Rationale *</label><textarea class="au-rationale" rows="3" placeholder="Explain why this site should be added..."></textarea></div>
           </div>
         </div>
-        <button type="button" id="btnAddUnit" onclick="addUnitBlock()" style="padding:7px 16px;border:1px dashed var(--border);border-radius:var(--radius);background:var(--surface);font-family:inherit;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;width:100%;transition:all .15s">+ Add Another Unit (max 3)</button>
+        <button type="button" id="btnAddUnit" onclick="addUnitBlock()" style="padding:7px 16px;border:1px dashed var(--border);border-radius:var(--radius);background:var(--surface);font-family:inherit;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;width:100%;transition:all .15s">+ Add Another Site (max 3)</button>
       </div>
       <div class="form-group">
         <label>Additional Comments</label>
@@ -895,7 +896,7 @@ function addUnitBlock() {
   block.style.cssText = 'background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px';
   const num = additionalUnitCount;
   const header = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">' +
-    '<div style="font-size:12px;font-weight:600;color:#1A2744;text-transform:uppercase;letter-spacing:.4px">Additional Unit ' + num + '</div>' +
+    '<div style="font-size:12px;font-weight:600;color:#1A2744;text-transform:uppercase;letter-spacing:.4px">Additional Site ' + num + '</div>' +
     '<button type="button" onclick="removeUnitBlock(this)" style="background:#FEE2E2;border:none;color:#B91C1C;border-radius:4px;padding:2px 8px;cursor:pointer;font-size:11px">Remove</button>' +
     '</div>';
   const row1 = '<div style="display:flex;gap:10px">' +
@@ -903,7 +904,7 @@ function addUnitBlock() {
     '<div class="form-group" style="flex:1"><label>Teaching Period *</label><input type="text" class="au-period" placeholder="e.g. Semester 1"></div>' +
     '</div>';
   const row2 = '<div class="form-group"><label>Blackboard Site Name *</label><input type="text" class="au-bbname" placeholder="e.g. ACCT1001_S1_2025"></div>' +
-           '<div class="form-group"><label>Rationale *</label><textarea class="au-rationale" rows="3" placeholder="Explain why this unit should be added..."></textarea></div>';
+           '<div class="form-group"><label>Rationale *</label><textarea class="au-rationale" rows="3" placeholder="Explain why this site should be added..."></textarea></div>';
   block.innerHTML = header + row1 + row2;
   container.appendChild(block);
   if (additionalUnitCount >= 3) {
@@ -918,7 +919,7 @@ function removeUnitBlock(btn) {
   // Renumber
   document.querySelectorAll('#additionalUnitsContainer .additional-unit-block').forEach((b, i) => {
     const title = b.querySelector('div[style*="font-weight:600"]');
-    if (title) title.textContent = 'Additional Unit ' + (i + 1);
+    if (title) title.textContent = 'Additional Site ' + (i + 1);
   });
 }
 
@@ -973,7 +974,7 @@ async function submitUnitChange() {
     if (!year || !period || !bbname) { showToast('Please fill in all replacement unit details.', 'error'); return; }
     const rationale = document.getElementById('cdRationale').value.trim();
     if (!year || !period || !bbname || !rationale) { showToast('Please fill in all replacement unit details including rationale.', 'error'); return; }
-    changeDetail = 'CHANGE DEFAULT UNIT\n' +
+    changeDetail = 'CHANGE DEFAULT SITE\n' +
       '  Teaching Year: ' + year + '\n' +
       '  Teaching Period: ' + period + '\n' +
       '  Blackboard Site Name: ' + bbname + '\n' +
@@ -991,7 +992,7 @@ async function submitUnitChange() {
       units.push('  Unit ' + (i+1) + ': Year: ' + year + ' | Period: ' + period + ' | BB Site: ' + bbname + ' | Rationale: ' + rationale);
     });
     if (!valid) { showToast('Please fill in all fields for each additional unit.', 'error'); return; }
-    changeDetail = 'ADD ADDITIONAL UNITS\n' + units.join('\n');
+    changeDetail = 'ADD ADDITIONAL SITES\n' + units.join('\n');
   }
 
   if (comment) changeDetail += '\nComments: ' + comment;
